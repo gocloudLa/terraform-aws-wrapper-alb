@@ -300,59 +300,6 @@ features:
             }]
           }]
           ```
-  - icon: 🆙️
-    title: Upgrade from v1.x to v2.0
-    short_description: 
-    long_description: ""
-    examples:
-  - icon: 🔄
-    title: Changed default variable values
-    short_description: Updates SSL policy and removes timeouts for resource creation and deletion
-    long_description: |
-      1. Variables new values:
-      - **ssl_policy** from `"ELBSecurityPolicy-2016-08"` to `"ELBSecurityPolicy-TLS13-1-2-Res-2021-06"`
-      - **timeouts.create** from `10m` to `null`
-      - **timeouts.delete** from `10m` to `null`
-    examples:
-  - icon: 🔀
-    title: Moved resources
-    short_description: Consolidated HTTP/HTTPS listeners with flexible port configuration
-    long_description: |
-      1. moved resources:
-      - `aws_lb_listener.frontend_http_tcp[0]` => `aws_lb_listener.this["80"]`
-      - `aws_lb_listener.frontend_https[0]` => `aws_lb_listener.this["443"]`
-      - `aws_lb_listener.frontend_https[1]` => `aws_lb_listener.this["8080"]`
-    examples:
-  - icon: 🔄
-    title: New Listeners Definitions format
-    short_description: #
-    long_description: |
-      #
-    examples:
-  - icon: 🔙
-    title: Before 1.x
-    short_description: ```hcl
-alb_parameters = {
-"ExExternal00" = {
-...
-    long_description: |
-      ```hcl
-      alb_parameters = {
-      "ExExternal00" = {
-      ...
-    examples:
-  - icon: 🆕
-    title: After 2.0
-    short_description: ```hcl
-alb_parameters = {
-"ExExternal00" = {
-...
-    long_description: |
-      ```hcl
-      alb_parameters = {
-      "ExExternal00" = {
-      ...
-    examples:
 important_notes: ""
 input_table: |
   | create | Controls whether to create the load balancer. | `bool` | `true` | no |

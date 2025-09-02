@@ -332,6 +332,39 @@ alb_logs_lifecycle = [{
 
 
 
+## 📑 Inputs
+| Name                             | Description                                                                                             | Type     | Default                                                   | Required |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------- | -------- | --------------------------------------------------------- | -------- |
+| create                           | Controls whether to create the load balancer.                                                           | `bool`   | `true`                                                    | no       |
+| create_security_group            | Specifies whether to create a new security group for the resource.                                      | `bool`   | `true`                                                    | no       |
+| name                             | Name of the load balancer.                                                                              | `string` | `"${local.common_name}-${each.key}"`                      | no       |
+| security_groups                  | Security groups attached to the load balancer.                                                          | `list`   | `[module.security_group_alb[each.key].security_group_id]` | no       |
+| drop_invalid_header_fields       | Drop invalid header fields for the load balancer.                                                       | `bool`   | `false`                                                   | no       |
+| enable_deletion_protection       | Enables deletion protection for the load balancer.                                                      | `bool`   | `false`                                                   | no       |
+| enable_http2                     | Enables HTTP/2 for the load balancer.                                                                   | `bool`   | `true`                                                    | no       |
+| enable_cross_zone_load_balancing | Enables cross-zone load balancing.                                                                      | `bool`   | `false`                                                   | no       |
+| https_listeners                  | List of HTTPS listeners for the load balancer.                                                          | `list`   | `[]`                                                      | no       |
+| listeners                        | List of HTTP or TCP listeners.                                                                          | `list`   | `{}`                                                      | no       |
+| idle_timeout                     | The idle timeout in seconds.                                                                            | `number` | `60`                                                      | no       |
+| ip_address_type                  | IP address type.                                                                                        | `string` | `"ipv4"`                                                  | no       |
+| internal                         | Whether the load balancer is internal.                                                                  | `bool`   | `false`                                                   | no       |
+| name_prefix                      | Prefix for the load balancer name.                                                                      | `string` | `null`                                                    | no       |
+| load_balancer_type               | Type of load balancer (application, network).                                                           | `string` | `"application"`                                           | no       |
+| minimum_load_balancer_capacity   | Minimum capacity for a load balancer. Only valid for Load Balancers of type `application` or `network`. | `any`    | `{}`                                                      | no       |
+| timeouts                         | Timeout for updating the load balancer.                                                                 | `string` | `{}`                                                      | no       |
+| access_logs                      | Access logs configuration.                                                                              | `map`    | `{}`                                                      | no       |
+| subnets                          | List of subnets for the load balancer.                                                                  | `list`   | `null`                                                    | no       |
+| subnet_mapping                   | Subnet mappings for the load balancer.                                                                  | `list`   | `[]`                                                      | no       |
+| lb_tags                          | Tags to apply to the load balancer.                                                                     | `map`    | `{}`                                                      | no       |
+| target_groups                    | Target groups for the load balancer.                                                                    | `list`   | `[]`                                                      | no       |
+| vpc_id                           | VPC ID where the load balancer will be deployed.                                                        | `string` | `null`                                                    | no       |
+| enable_waf_fail_open             | Enables fail-open for the WAF.                                                                          | `bool`   | `false`                                                   | no       |
+| desync_mitigation_mode           | Desync mitigation mode for the load balancer.                                                           | `string` | `"defensive"`                                             | no       |
+| putin_khuylo                     | A custom variable.                                                                                      | `bool`   | `true`                                                    | no       |
+| vpc_name                         | (optional) Custom VPC Name                                                                              | `string` | ``${local.common_name}` (dmc-prd)`                        | no       |
+| enable_zonal_shift               | Whether zonal shift is enabled                                                                          | `bool`   | `false`                                                   | no       |
+| ipam_pools                       | The IPAM pools to use with the load balancer                                                            | `any`    | `{}`                                                      | no       |
+
 
 
 

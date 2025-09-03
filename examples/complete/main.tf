@@ -65,12 +65,12 @@ module "wrapper_alb" {
           zone_name    = "${local.zone_public}"
           private_zone = false
         }
-        # Para Generar un registro en la RAIZ de la Zona DNS
-        # Utilizar como key _null_ 
+                # To generate a record in the ROOT of the DNS Zone
+        # Use as key _null_
         # "_null_" = {
         #   zone_name    = local.zone_public
         #   private_zone = false
-        # } # Esto genera por Ej. https://example.com
+        # } # This generates for example https://example.com
       }
     }
   }

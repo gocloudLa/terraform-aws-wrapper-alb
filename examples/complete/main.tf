@@ -2,7 +2,6 @@ module "wrapper_alb" {
   source = "../../"
 
   metadata = local.metadata
-  project  = local.project
 
   alb_parameters = {
     "ExExternal01" = {

@@ -6,9 +6,6 @@ variable "metadata" {
   type = any
 }
 
-variable "project" {
-  type = string
-}
 
 /*----------------------------------------------------------------------*/
 /* ALB | Variable Definition                                            */

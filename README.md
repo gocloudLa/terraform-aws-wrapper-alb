@@ -377,6 +377,7 @@ alb_logs_lifecycle = [{
 | route53_records                                              | Route53 records configuration.                                                                          | `map`    | `{}`                                                      | no       |
 | web_acl_arn                                                  | Web ACL ARN to associate.                                                                               | `string` | `null`                                                    | no       |
 | xff_header_processing_mode                                   | XFF header processing mode.                                                                             | `string` | `null`                                                    | no       |
+| tags                                                         | A map of tags to assign to resources.                                                                   | `map`    | `{}`                                                      | no       |
 
 
 

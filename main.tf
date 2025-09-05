@@ -54,5 +54,5 @@ module "alb" {
   # security_group_use_name_prefix                               = try(each.value.security_group_use_name_prefix, var.alb_defaults.security_group_use_name_prefix, true)
   # security_groups                                              = try(each.value.security_groups, var.alb_defaults.security_groups, [])
 
-  tags = local.common_tags
+  tags = merge(local.common_tags, try(each.value.tags, var.alb_defaults.tags, null))
 }

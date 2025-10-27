@@ -1,7 +1,7 @@
 module "alb" {
   for_each = var.alb_parameters
   source   = "terraform-aws-modules/alb/aws"
-  version  = "9.17.0"
+  version  = "10.0.2"
 
   create                           = true
   create_security_group            = false

@@ -21,7 +21,7 @@ The Terraform Wrapper for ALB simplifies the configuration of Load Balancer Serv
 ### 🔗 External Modules
 | Name | Version |
 |------|------:|
-| <a href="https://github.com/terraform-aws-modules/terraform-aws-alb" target="_blank">terraform-aws-modules/alb/aws</a> | 10.0.2 |
+| <a href="https://github.com/terraform-aws-modules/terraform-aws-alb" target="_blank">terraform-aws-modules/alb/aws</a> | 10.1.0 |
 | <a href="https://github.com/terraform-aws-modules/terraform-aws-s3-bucket" target="_blank">terraform-aws-modules/s3-bucket/aws</a> | 5.8.2 |
 | <a href="https://github.com/terraform-aws-modules/terraform-aws-security-group" target="_blank">terraform-aws-modules/security-group/aws</a> | 5.3.1 |
 | <a href="https://github.com/umotif-public/terraform-aws-waf-webaclv2" target="_blank">umotif-public/waf-webaclv2/aws</a> | 5.1.2 |

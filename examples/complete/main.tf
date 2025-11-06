@@ -4,6 +4,7 @@ module "wrapper_alb" {
   metadata = local.metadata
 
   alb_parameters = {
+
     "ExExternal01" = {
       # enable_zonal_shift = true
       # ipam_pools = {}
@@ -71,6 +72,59 @@ module "wrapper_alb" {
         #   private_zone = false
         # } # This generates for example https://example.com
       }
+    }
+
+    "NlbExample01" = {
+      subnets            = data.aws_subnets.public.ids
+      internal           = false
+      load_balancer_type = "network"
+      vpc_id             = data.aws_vpc.this.id
+
+      target_groups = {
+        tg80 = {
+          name              = "${local.common_name}-nlb-tcp-80"
+          protocol          = "TCP"
+          port              = 80
+          target_type       = "ip"
+          vpc_id            = data.aws_vpc.this.id
+          create_attachment = false
+          health_check = {
+            enabled             = true
+            protocol            = "TCP"
+            port                = 80
+            healthy_threshold   = 2
+            unhealthy_threshold = 2
+            interval            = 10
+            timeout             = 6
+          }
+        }
+
+      }
+
+      listeners = {
+        80 = {
+          port     = 80
+          protocol = "TCP"
+          forward = {
+            target_group_key = "tg80"
+          }
+        }
+      }
+
+      dns_records = {}
+
+      ingress_with_cidr_blocks = [
+        {
+          rule        = "http-80-tcp"
+          cidr_blocks = "0.0.0.0/0"
+          description = "Enable all access"
+        },
+        {
+          rule        = "https-443-tcp"
+          cidr_blocks = "0.0.0.0/0"
+          description = "Enable all access"
+        }
+      ]
     }
   }
   alb_defaults = var.alb_defaults

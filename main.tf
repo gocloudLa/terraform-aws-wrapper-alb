@@ -5,7 +5,7 @@ module "alb" {
 
   create                           = true
   create_security_group            = false
-  name                             = "${local.common_name}-${each.key}"
+  name                             = try(each.value.name, "${local.common_name}-${each.key}")
   region                           = try(each.value.region, var.alb_defaults.region, null)
   security_groups                  = [module.security_group_alb[each.key].security_group_id]
   drop_invalid_header_fields       = try(each.value.drop_invalid_header_fields, var.alb_defaults.drop_invalid_header_fields, false)

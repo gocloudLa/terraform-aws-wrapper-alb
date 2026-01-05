@@ -7,7 +7,7 @@ module "alb" {
   create_security_group            = false
   name                             = try(each.value.name, "${local.common_name}-${each.key}")
   region                           = try(each.value.region, var.alb_defaults.region, null)
-  security_groups                  = concat(try([module.security_group_alb[each.key].security_group_id], []), try(each.value.security_groups_ids, []))
+  security_groups                  = concat(try(each.value.security_group_create, true) ? [module.security_group_alb[each.key].security_group_id] : [], try(each.value.security_groups_ids, []))
   drop_invalid_header_fields       = try(each.value.drop_invalid_header_fields, var.alb_defaults.drop_invalid_header_fields, false)
   enable_deletion_protection       = try(each.value.enable_deletion_protection, var.alb_defaults.enable_deletion_protection, false)
   enable_http2                     = try(each.value.enable_http2, var.alb_defaults.enable_http2, true)

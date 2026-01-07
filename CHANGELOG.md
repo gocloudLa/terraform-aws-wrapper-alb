@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.0](https://github.com/gocloudLa/terraform-aws-wrapper-alb/compare/v1.0.1...v1.1.0) (2026-01-07)
+
+
+### Features
+
+* **module:** add custom names & custom security groups rules ([#11](https://github.com/gocloudLa/terraform-aws-wrapper-alb/issues/11)) ([dcd195d](https://github.com/gocloudLa/terraform-aws-wrapper-alb/commit/dcd195d75cdafcf8b042c4b78c7609bfc1a22030))
+* **readme:** add NLB example ([#9](https://github.com/gocloudLa/terraform-aws-wrapper-alb/issues/9)) ([ce6ca85](https://github.com/gocloudLa/terraform-aws-wrapper-alb/commit/ce6ca8527f6a65d7ff80f05d21dc6dac48589dd8))
+
+
+### Bug Fixes
+
+* **deps:** bump the all-terraform-dependencies group across 1 directory with 3 updates ([#6](https://github.com/gocloudLa/terraform-aws-wrapper-alb/issues/6)) ([f5aa1ed](https://github.com/gocloudLa/terraform-aws-wrapper-alb/commit/f5aa1ed9ae72361f4a5a738897c517e8cb1af34e))
+
 ## [1.0.1](https://github.com/gocloudLa/terraform-aws-wrapper-alb/compare/v1.0.0...v1.0.1) (2025-10-11)
 
 

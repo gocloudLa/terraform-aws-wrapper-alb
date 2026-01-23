@@ -41,6 +41,7 @@ module "alb" {
   enable_tls_version_and_cipher_suite_headers                  = try(each.value.enable_tls_version_and_cipher_suite_headers, var.alb_defaults.enable_tls_version_and_cipher_suite_headers, null)
   enable_xff_client_port                                       = try(each.value.enable_xff_client_port, var.alb_defaults.enable_xff_client_port, null)
   enforce_security_group_inbound_rules_on_private_link_traffic = try(each.value.enforce_security_group_inbound_rules_on_private_link_traffic, var.alb_defaults.enforce_security_group_inbound_rules_on_private_link_traffic, null)
+  health_check_logs                                            = try(each.value.health_check_logs, var.alb_defaults.health_check_logs, null)
   minimum_load_balancer_capacity                               = try(each.value.minimum_load_balancer_capacity, var.alb_defaults.minimum_load_balancer_capacity, null)
   route53_records                                              = try(each.value.route53_records, var.alb_defaults.route53_records, {})
   web_acl_arn                                                  = try(each.value.web_acl_arn, var.alb_defaults.web_acl_arn, null)

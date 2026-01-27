@@ -21,7 +21,7 @@ The Terraform Wrapper for ALB simplifies the configuration of Load Balancer Serv
 ### 🔗 External Modules
 | Name | Version |
 |------|------:|
-| <a href="https://github.com/terraform-aws-modules/terraform-aws-alb" target="_blank">terraform-aws-modules/alb/aws</a> | 10.0.2 |
+| <a href="https://github.com/terraform-aws-modules/terraform-aws-alb" target="_blank">terraform-aws-modules/alb/aws</a> | 10.5.0 |
 | <a href="https://github.com/terraform-aws-modules/terraform-aws-s3-bucket" target="_blank">terraform-aws-modules/s3-bucket/aws</a> | 5.8.2 |
 | <a href="https://github.com/terraform-aws-modules/terraform-aws-security-group" target="_blank">terraform-aws-modules/security-group/aws</a> | 5.3.1 |
 | <a href="https://github.com/umotif-public/terraform-aws-waf-webaclv2" target="_blank">umotif-public/waf-webaclv2/aws</a> | 5.1.2 |
@@ -368,6 +368,7 @@ alb_logs_lifecycle = [{
 | associate_web_acl                                            | Whether to associate a WAF Web ACL.                                                                     | `bool`   | `false`                                                   | no       |
 | client_keep_alive                                            | Client keep alive configuration.                                                                        | `string` | `null`                                                    | no       |
 | connection_logs                                              | Connection logs configuration.                                                                          | `map`    | `null`                                                    | no       |
+| health_check_logs                                            | Map containing health check logging configuration for application load balancers.                       | `map`    | `null`                                                    | no       |
 | customer_owned_ipv4_pool                                     | Customer owned IPv4 pool.                                                                               | `string` | `null`                                                    | no       |
 | default_port                                                 | Default port for the load balancer.                                                                     | `number` | `80`                                                      | no       |
 | default_protocol                                             | Default protocol for the load balancer.                                                                 | `string` | `"HTTP"`                                                  | no       |

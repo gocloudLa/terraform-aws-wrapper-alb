@@ -14,7 +14,7 @@ The Terraform Wrapper for ALB simplifies the configuration of Load Balancer Serv
 
 - 🌐 [DNS Record](#dns-record) - Registers a CNAME DNS record in a Route53 hosted zone
 
-- 📜 [Access Log](#access-log) - Create S3 bucket and configure LoadBalancer access log in S3
+- 📜 [LoadBalancer Logs](#loadbalancer-logs) - Create S3 bucket and configure LoadBalancer access, connection and health check logs in S3
 
 
 
@@ -36,17 +36,21 @@ alb_parameters = {
       internal = false
       # vpc_name    = "" # Default: ${local.common_name} (dmc-prd)
 
-      # # Required to create access logs
-      # enable_alb_logs        = true # Default: false
+      # Required to configure logs
+      # enable_access_logs       = true # Default: false
+      # enable_connection_logs   = true # Default: false
+      # enable_health_check_logs = true # Default: false
+      # bucket_logs = "existing-logs-bucket-name" # Optional: if set, the module will NOT create a new bucket
       # alb_logs_force_destroy = true # Default: false
-      # alb_logs_lifecycle = [] # Default: [{
-      #   id      = "move-to-onezone-ia"
-      #   enabled = true
-      #   transition = [{
-      #     days          = 30
-      #     storage_class = "ONEZONE_IA"
-      #   }]
-      # }]
+      # alb_logs_lifecycle = [] 
+      # # Default: [{
+      # #   id      = "move-to-onezone-ia"
+      # #   enabled = true
+      # #   transition = [{
+      # #     days          = 30
+      # #     storage_class = "ONEZONE_IA"
+      # #   }]
+      # # }]
 
       listeners = {
         80 = {
@@ -307,14 +311,17 @@ dns_records = {
 </details>
 
 
-### Access Log
-Create S3 bucket and configure LoadBalancer access log in S3
+### LoadBalancer Logs
+Create S3 bucket or reuse existing one and configure LoadBalancer access, connection and health check logs in S3
 
 
 <details><summary>Configuration Code</summary>
 
 ```hcl
-enable_alb_logs        = true # Default: false
+enable_access_logs       = true # Default: false
+enable_connection_logs   = true # Default: false
+enable_health_check_logs = true # Default: false
+bucket_logs = "existing-logs-bucket-name" # Optional: if set, the module will NOT create a new bucket
 alb_logs_force_destroy = true # Default: false
 alb_logs_lifecycle = [{
   id      = "move-to-onezone-ia"
@@ -352,7 +359,10 @@ alb_logs_lifecycle = [{
 | load_balancer_type                                           | Type of load balancer (application, network).                                                           | `string` | `"application"`                                           | no       |
 | minimum_load_balancer_capacity                               | Minimum capacity for a load balancer. Only valid for Load Balancers of type `application` or `network`. | `map`    | `null`                                                    | no       |
 | timeouts                                                     | Timeout for updating the load balancer.                                                                 | `map`    | `null`                                                    | no       |
-| access_logs                                                  | Access logs configuration.                                                                              | `map`    | `null`                                                    | no       |
+| enable_access_logs                                           | Enable access logs.                                                                                     | `bool`   | `false`                                                   | no       |
+| enable_connection_logs                                       | Enable connection logs.                                                                                 | `bool`   | `false`                                                   | no       |
+| enable_health_check_logs                                     | Enable health check logs.                                                                               | `bool`   | `false`                                                   | no       |
+| bucket_logs                                                  | Existing S3 bucket name for logs.                                                                       | `string` | `null`                                                    | no       |
 | subnets                                                      | List of subnets for the load balancer.                                                                  | `list`   | `null`                                                    | no       |
 | subnet_mapping                                               | Subnet mappings for the load balancer.                                                                  | `list`   | `null`                                                    | no       |
 | lb_tags                                                      | Tags to apply to the load balancer.                                                                     | `map`    | `{}`                                                      | no       |
@@ -391,7 +401,7 @@ alb_logs_lifecycle = [{
 - **⚠️ Security Group Creation:** The module creates security groups by default. Set `create_security_group = false` if you want to use existing security groups.
 - **⚠️ WAF Integration:** WAF rules are automatically attached to ALB listeners when configured.
 - **⚠️ DNS Records:** DNS records are created in Route53 hosted zones. Ensure the zone exists before creating records.
-- **⚠️ Access Logs:** Access logs are stored in S3. Ensure proper S3 bucket permissions are configured.
+- **⚠️ LoadBalancer Logs:** LoadBalancer access, connection and health check logs are stored in S3. Ensure proper S3 bucket permissions are configured.
 
 
 

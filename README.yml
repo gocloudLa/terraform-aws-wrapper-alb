@@ -348,8 +348,6 @@ input_table: |
   | additional_target_group_attachments | Additional target group attachments. | `map` | `null` | no |
   | associate_web_acl | Whether to associate a WAF Web ACL. | `bool` | `false` | no |
   | client_keep_alive | Client keep alive configuration. | `string` | `null` | no |
-  | connection_logs | Connection logs configuration. | `map` | `null` | no |
-  | health_check_logs | Map containing health check logging configuration for application load balancers. | `map` | `null` | no |
   | customer_owned_ipv4_pool | Customer owned IPv4 pool. | `string` | `null` | no |
   | default_port | Default port for the load balancer. | `number` | `80` | no |
   | default_protocol | Default protocol for the load balancer. | `string` | `"HTTP"` | no |

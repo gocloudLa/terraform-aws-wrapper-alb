@@ -1,10 +1,29 @@
 locals {
-  access_logs_calculated = {
+  # Unified logging config per ALB
+  logging_config = {
     for alb_key, alb_config in var.alb_parameters :
     alb_key => {
-      "create_bucket" = try(alb_config.enable_alb_logs, false)
-      "force_destroy" = try(alb_config.alb_logs_force_destroy, false)
-      "lifecycle_rule" = try(alb_config.alb_logs_lifecycle, [
+      enable_access_logs       = try(alb_config.enable_access_logs, false)
+      enable_connection_logs   = try(alb_config.enable_connection_logs, false)
+      enable_health_check_logs = try(alb_config.enable_health_check_logs, false)
+
+      # Optional existing bucket (to reuse instead of creating one)
+      bucket_logs = try(alb_config.bucket_logs, null)
+
+      # Create a bucket only if:
+      # - at least one of the 3 flags is true
+      # - and NO explicit bucket was provided (bucket_logs == null)
+      create_bucket = (
+        (
+          try(alb_config.enable_access_logs, false)
+          || try(alb_config.enable_connection_logs, false)
+          || try(alb_config.enable_health_check_logs, false)
+        )
+        && try(alb_config.bucket_logs, null) == null
+      )
+
+      force_destroy = try(alb_config.alb_logs_force_destroy, false)
+      lifecycle_rule = try(alb_config.alb_logs_lifecycle, [
         {
           id      = "move-to-onezone-ia"
           enabled = true
@@ -14,12 +33,13 @@ locals {
           }]
         }
       ])
-    } if try(alb_config.enable_alb_logs, false) == true
+    }
   }
 }
 
 module "elb_bucket" {
-  for_each = local.access_logs_calculated
+  # One bucket per ALB; the creation is decided by create_bucket
+  for_each = local.logging_config
 
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "5.8.2"
@@ -39,11 +59,36 @@ module "elb_bucket" {
 }
 
 locals {
+  # Access logs for the ALB
   access_logs = {
-    for alb_key, alb_config in var.alb_parameters :
+    for alb_key, cfg in local.logging_config :
     alb_key => {
-      "bucket"  = module.elb_bucket[alb_key].s3_bucket_id
-      "enabled" = try(alb_config.enable_alb_logs, false)
-    } if try(alb_config.enable_alb_logs, false) == true
+      bucket  = coalesce(cfg.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
+      enabled = cfg.enable_access_logs
+      prefix  = "access-logs"
+    }
+    if cfg.enable_access_logs
+  }
+
+  # Connection logs for the ALB
+  connection_logs_local = {
+    for alb_key, cfg in local.logging_config :
+    alb_key => {
+      enabled = cfg.enable_connection_logs
+      bucket  = coalesce(cfg.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
+      prefix  = "connection-logs"
+    }
+    if cfg.enable_connection_logs
+  }
+
+  # Health check logs for the ALB
+  health_check_logs_local = {
+    for alb_key, cfg in local.logging_config :
+    alb_key => {
+      enabled = cfg.enable_health_check_logs
+      bucket  = coalesce(cfg.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
+      prefix  = "health-check-logs"
+    }
+    if cfg.enable_health_check_logs
   }
 }

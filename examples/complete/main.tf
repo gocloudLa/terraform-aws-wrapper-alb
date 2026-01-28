@@ -12,8 +12,11 @@ module "wrapper_alb" {
       internal = false
       # vpc_name    = "" # Default: ${local.common_name} (dmc-prd)
 
-      # # Required to create access logs
-      # enable_alb_logs        = true # Default: false
+      # Required to configure logs
+      # enable_access_logs       = true # Default: false
+      # enable_connection_logs   = true # Default: false
+      # enable_health_check_logs = true # Default: false
+      # bucket_logs = "existing-logs-bucket-name" # Optional: if set, the module will NOT create a new bucket
       # alb_logs_force_destroy = true # Default: false
       # alb_logs_lifecycle = [] 
       # # Default: [{

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/gocloudLa/terraform-aws-wrapper-alb/compare/v1.1.0...v1.2.0) (2026-01-28)
+
+
+### Features
+
+* **module:** add health_check_logs ([#12](https://github.com/gocloudLa/terraform-aws-wrapper-alb/issues/12)) ([e3b574f](https://github.com/gocloudLa/terraform-aws-wrapper-alb/commit/e3b574f2516fe53beee0ec5cca2e5d0d68379af3))
+
 ## [1.1.0](https://github.com/gocloudLa/terraform-aws-wrapper-alb/compare/v1.0.1...v1.1.0) (2026-01-07)
 
 

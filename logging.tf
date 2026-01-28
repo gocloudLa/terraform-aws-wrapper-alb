@@ -61,34 +61,34 @@ module "elb_bucket" {
 locals {
   # Access logs for the ALB
   access_logs = {
-    for alb_key, cfg in local.logging_config :
+    for alb_key, alb_config in local.logging_config :
     alb_key => {
-      bucket  = coalesce(cfg.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
-      enabled = cfg.enable_access_logs
+      bucket  = coalesce(alb_config.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
+      enabled = alb_config.enable_access_logs
       prefix  = "access-logs"
     }
-    if cfg.enable_access_logs
+    if alb_config.enable_access_logs
   }
 
   # Connection logs for the ALB
   connection_logs_local = {
-    for alb_key, cfg in local.logging_config :
+    for alb_key, alb_config in local.logging_config :
     alb_key => {
-      enabled = cfg.enable_connection_logs
-      bucket  = coalesce(cfg.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
+      enabled = alb_config.enable_connection_logs
+      bucket  = coalesce(alb_config.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
       prefix  = "connection-logs"
     }
-    if cfg.enable_connection_logs
+    if alb_config.enable_connection_logs
   }
 
   # Health check logs for the ALB
   health_check_logs_local = {
-    for alb_key, cfg in local.logging_config :
+    for alb_key, alb_config in local.logging_config :
     alb_key => {
-      enabled = cfg.enable_health_check_logs
-      bucket  = coalesce(cfg.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
+      enabled = alb_config.enable_health_check_logs
+      bucket  = coalesce(alb_config.bucket_logs, module.elb_bucket[alb_key].s3_bucket_id)
       prefix  = "health-check-logs"
     }
-    if cfg.enable_health_check_logs
+    if alb_config.enable_health_check_logs
   }
 }

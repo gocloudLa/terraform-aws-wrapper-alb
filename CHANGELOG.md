@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/gocloudLa/terraform-aws-wrapper-alb/compare/v1.2.0...v1.3.0) (2026-01-29)
+
+
+### Features
+
+* **security:** add custom tags to security group ([#14](https://github.com/gocloudLa/terraform-aws-wrapper-alb/issues/14)) ([96b793f](https://github.com/gocloudLa/terraform-aws-wrapper-alb/commit/96b793fdb7c0a8a67ac341bb822d649e8a0aaeda))
+
 ## [1.2.0](https://github.com/gocloudLa/terraform-aws-wrapper-alb/compare/v1.1.0...v1.2.0) (2026-01-28)
 
 

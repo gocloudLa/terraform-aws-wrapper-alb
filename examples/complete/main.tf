@@ -85,7 +85,7 @@ module "wrapper_alb" {
 
       target_groups = {
         tg80 = {
-          name              = "${local.common_name}-nlb-tcp-80"
+          name              = "ExNlb-nlb-tcp-80"
           protocol          = "TCP"
           port              = 80
           target_type       = "ip"

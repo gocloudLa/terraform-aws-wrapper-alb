@@ -42,7 +42,7 @@ module "elb_bucket" {
   for_each = local.logging_config
 
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "5.10.0"
+  version = "5.14.0"
 
   bucket = lower(substr("${local.common_name}-${each.key}-logs", 0, 63))
 

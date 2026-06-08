@@ -2,7 +2,7 @@ module "security_group_alb" {
   for_each = var.alb_parameters
 
   source  = "terraform-aws-modules/security-group/aws"
-  version = "5.3.1"
+  version = "6.0.0"
 
   create                   = lookup(each.value, "security_group_create", true)
   name                     = lookup(each.value, "security_group_name", "${local.common_name}-lb-${each.key}")
